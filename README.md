@@ -37,6 +37,8 @@ docker run -it --rm -p 8000:8000 \
   ghcr.io/automa/claude-code
 ```
 
+You can also use [AWS Bedrock](https://docs.anthropic.com/en/docs/claude-code/amazon-bedrock) by setting the relevant environment variables.
+
 ## How It Works
 
 It runs [`claude-code`](https://www.anthropic.com/claude-code) in `bypassPermissions` mode.

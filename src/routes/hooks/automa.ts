@@ -17,7 +17,7 @@ const PullRequest = z.object({
 const generatePrFields = async (description: string) => {
   const response = await anthropic.messages.create({
     max_tokens: 2048,
-    model: 'claude-sonnet-4-0',
+    model: env.ANTHROPIC.MODEL,
     system:
       'Generate a github pull request title (should be short) and body (using markdown) based on the description given by the user. Make sure to not include any diffs in pull request body.',
     messages: [{ role: 'user', content: description }],

@@ -1,0 +1,10 @@
+{
+  "$schema": "https://railway.app/railway.schema.json",
+  "build": {
+    "watchPatterns": ["src", ".env", "pnpm-lock.yaml", "railway.json"]
+  },
+  "deploy": {
+    "startCommand": "node build/index.js",
+    "restartPolicyType": "ALWAYS"
+  }
+}

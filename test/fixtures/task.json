@@ -1,0 +1,12 @@
+{
+  "id": "whmsg_1",
+  "type": "task.created",
+  "timestamp": "2025-05-30T09:30:06.261Z",
+  "data": {
+    "task": {
+      "id": 1,
+      "token": "abcdef",
+      "title": "Fix a minor bug"
+    }
+  }
+}

@@ -18,12 +18,19 @@ export const service = 'claude-code';
 export const version = pkg.version;
 
 const schema = z.object({
+  ANTHROPIC: z.object({
+    API_KEY: z.string().optional(),
+    MODEL: z.string().default('claude-sonnet-4-0'),
+  }),
   AUTOMA: z.object({
     WEBHOOK_SECRET: z.string().default('atma_whsec_claude-code'),
   }),
-  ANTHROPIC: z.object({
-    API_KEY: z.string(),
+  AWS: z.object({
+    REGION: z.string().optional(),
+    ACCESS_KEY_ID: z.string().optional(),
+    SECRET_ACCESS_KEY: z.string().optional(),
   }),
+  CLAUDE_CODE_USE_BEDROCK: z.string().optional(),
   PORT: z.number().default(5008),
   REDIS_URL: z.string().default('redis://localhost:6379'),
   SENTRY_DSN: z.string().optional(),

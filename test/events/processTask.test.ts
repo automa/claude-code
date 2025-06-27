@@ -50,7 +50,7 @@ const codeFixture = join(__dirname, '..', 'fixtures', 'code');
 
 const anthropicRequestData = {
   max_tokens: 2048,
-  model: 'claude-3-5-haiku-latest',
+  model: 'claude-sonnet-4-0',
   system:
     'Generate a github pull request title (should be short) and body (using markdown) based on the description given by the user. Make sure to not include any diffs in pull request body.',
   messages: [{ role: 'user', content: 'Task completed successfully' }],

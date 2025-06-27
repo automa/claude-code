@@ -29,6 +29,7 @@ LABEL org.opencontainers.image.title="Automa Claude Code Bot"
 LABEL org.opencontainers.image.description="Claude Code Bot for Automa"
 
 ENV NODE_ENV=production
+ENV PORT=8000
 
 WORKDIR /app
 

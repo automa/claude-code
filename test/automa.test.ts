@@ -60,7 +60,7 @@ suite('automa hook', () => {
     const response = await call(app, '/hooks/automa', {
       method: 'POST',
       headers: {},
-      payload: {},
+      payload,
     });
 
     assert.equal(response.statusCode, 401);
@@ -78,7 +78,7 @@ suite('automa hook', () => {
     assert.equal(response.statusCode, 401);
   });
 
-  suite('with valid signature', () => {
+  suite('with valid signature and task.created event', () => {
     setup(async () => {
       response = await callWithFixture(app, 'task');
     });

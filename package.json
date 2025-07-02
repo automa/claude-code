@@ -7,7 +7,7 @@
     "@anthropic-ai/claude-code": "=1.0.24",
     "@anthropic-ai/sdk": "~0.54.0",
     "@anthropic-ai/bedrock-sdk": "~0.22.2",
-    "@automa/bot": "~0.2.3",
+    "@automa/bot": "~0.2.8",
     "@fastify/autoload": "~5.7.1",
     "@fastify/helmet": "~11.1.1",
     "@fastify/sensible": "~5.2.0",

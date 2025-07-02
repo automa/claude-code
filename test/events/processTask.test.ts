@@ -3,7 +3,7 @@ import { join } from 'node:path';
 import { FastifyInstance } from 'fastify';
 import { assert } from 'chai';
 import { createSandbox, SinonSandbox, SinonStub } from 'sinon';
-import { CodeFolder, WebhookPayload } from '@automa/bot';
+import { CodeFolder, WebhookEventData, WebhookEventType } from '@automa/bot';
 
 import { server } from '../utils';
 
@@ -28,7 +28,7 @@ const data = {
     name: 'automa',
     provider_type: 'github',
   },
-} as WebhookPayload['data'];
+} as WebhookEventData<WebhookEventType.TaskCreated>;
 
 const dataWithDescription = {
   ...data,
@@ -41,10 +41,12 @@ const dataWithDescription = {
         data: {
           content: 'It does not work',
         },
+        bot_id: null,
+        repo_id: null,
       },
     ],
   },
-} as WebhookPayload['data'];
+} as WebhookEventData<WebhookEventType.TaskCreated>;
 
 const codeFixture = join(__dirname, '..', 'fixtures', 'code');
 

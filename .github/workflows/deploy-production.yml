@@ -6,6 +6,8 @@ on:
       - .github/workflows/deploy-production.yml
       - src/**
       - pnpm-lock.yaml
+      - .env
+      - Dockerfile
 concurrency:
   group: ${{ github.workflow }}
   cancel-in-progress: false

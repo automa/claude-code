@@ -13,7 +13,7 @@ This is an [AI](https://docs.automa.app/agents/types#ai) & [manual](https://docs
 
 ### Self-Hosting
 
-This bot can be self-hosted. You can follow these steps to get it running.
+This bot can be self-hosted. You can either follow our more detailed [guide](https://docs.automa.app/self-hosting/agents/claude-code) or follow these steps to get it running.
 
 #### Prerequisites
 

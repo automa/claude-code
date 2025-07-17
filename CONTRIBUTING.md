@@ -5,7 +5,7 @@
 - Have [`git`](https://git-scm.com/) installed.
 - Have [`docker`](https://docker.com/) installed.
 - Have [`node`](https://nodejs.org/) & [`pnpm`](https://pnpm.io/) installed.
-- Have a [manual](https://docs.automa.app/agents/types#manual) bot in either [Automa](https://automa.app) (Cloud or Self-hosted) or in [automa/monorepo](https://github.com/automa/monorepo) local setup.
+- Have a [manual](https://docs.automa.app/bots/types#manual) bot in either [Automa](https://automa.app) (Cloud or Self-hosted) or in [automa/monorepo](https://github.com/automa/monorepo) local setup.
 
 ## Setup environment variables
 

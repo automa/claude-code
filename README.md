@@ -1,6 +1,6 @@
 # claude-code
 
-This is an [AI](https://docs.automa.app/agents/types#ai) & [manual](https://docs.automa.app/agents/types#manual) bot for [**Automa**](https://automa.app) that uses [Anthropic's Claude Code](https://www.anthropic.com/claude-code) tool to work on tasks.
+This is an [AI](https://docs.automa.app/bots/types#ai) & [manual](https://docs.automa.app/bots/types#manual) [agent](https://docs.automa.app/bots/types#agent) for [**Automa**](https://automa.app) that uses [Anthropic's Claude Code](https://www.anthropic.com/claude-code) tool to work on tasks.
 
 #### Features
 
@@ -13,7 +13,7 @@ This is an [AI](https://docs.automa.app/agents/types#ai) & [manual](https://docs
 
 ### Self-Hosting
 
-This bot can be self-hosted. You can either follow our more detailed [guide](https://docs.automa.app/self-hosting/agents/claude-code) or follow these steps to get it running.
+This agent can be self-hosted. You can either follow our more detailed [guide](https://docs.automa.app/self-hosting/agents/claude-code) or follow these steps to get it running.
 
 #### Prerequisites
 
@@ -23,9 +23,9 @@ This bot can be self-hosted. You can either follow our more detailed [guide](htt
 
 - Have [`redis`](https://github.com/redis/redis) or any redis compatible memory store running.
 
-#### Automa agent
+#### Automa bot
 
-[Create an agent](https://docs.automa.app/agent-development/create-agent) of [manual](https://docs.automa.app/agents/types#manual) type on [Automa](https://automa.app) (Cloud or Self-hosted) and point its webhook to your planned server (e.g., `http://your-server-ip:8000/hooks/automa`). Copy the **webhook secret** after it is created.
+[Create a bot](https://docs.automa.app/bot-development/create-bot) of [manual](https://docs.automa.app/bots/types#manual) type on [Automa](https://automa.app) (Cloud or Self-hosted) and point its webhook to your planned server (e.g., `http://your-server-ip:8000/hooks/automa`). Copy the **webhook secret** after it is created.
 
 #### Starting the server
 

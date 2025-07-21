@@ -25,7 +25,7 @@ This agent can be self-hosted. You can either follow our more detailed [guide](h
 
 #### Automa bot
 
-[Create a bot](https://docs.automa.app/bot-development/create-bot) of [manual](https://docs.automa.app/bots/types#manual) type on [Automa](https://automa.app) (Cloud or Self-hosted) and point its webhook to your planned server (e.g., `http://your-server-ip:8000/hooks/automa`). Copy the **webhook secret** after it is created.
+[Register a bot](https://docs.automa.app/bot-development/registration) of [manual](https://docs.automa.app/bots/types#manual) type on [Automa](https://automa.app) (Cloud or Self-hosted) and point its webhook to your planned server (e.g., `http://your-server-ip:8000/hooks/automa`). Copy the **webhook secret** after it is created.
 
 #### Starting the server
 

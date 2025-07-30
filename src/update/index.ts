@@ -7,12 +7,23 @@ export const update = async (
   folder: CodeFolder,
   data: WebhookEventData<WebhookEventType.TaskCreated>,
 ) => {
-  const description = data.task.items
+  const descriptions = data.task.items
     .filter(({ type }) => type === 'message')
-    .map(({ data }) => `<description>${(data as any).content}</description>`)
-    .join('\n');
+    .map(({ data }) => `<description>${(data as any).content}</description>`);
 
-  const message = `<title>${data.task.title}</title>${description}`;
+  const originData =
+    data.task.items.find(({ type }) => type === 'origin')?.data ?? {};
+
+  const comments = ((originData as any).issueComments ?? []).map(
+    ({ body, userName }: { body: string; userName: string }) =>
+      `<comment author="${userName}">${body}</comment>`,
+  );
+
+  const message = [
+    `<title>${data.task.title}</title>`,
+    ...descriptions,
+    ...comments,
+  ].join('\n');
 
   const run = query({
     prompt: message,

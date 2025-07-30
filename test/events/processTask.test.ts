@@ -48,6 +48,33 @@ const dataWithDescription = {
   },
 } as WebhookEventData<WebhookEventType.TaskCreated>;
 
+const dataWithOriginComments = {
+  ...data,
+  task: {
+    ...data.task,
+    items: [
+      {
+        id: 1,
+        type: 'origin',
+        data: {
+          issueComments: [
+            {
+              body: 'This is a comment',
+              userName: 'user1',
+            },
+            {
+              body: 'This is another comment',
+              userName: 'user2',
+            },
+          ],
+        },
+        bot_id: null,
+        repo_id: null,
+      },
+    ],
+  },
+} as WebhookEventData<WebhookEventType.TaskCreated>;
+
 const codeFixture = join(__dirname, '..', 'fixtures', 'code');
 
 const anthropicRequestData = {
@@ -218,7 +245,7 @@ suite('events/processTask', () => {
       assert.deepEqual(queryStub.firstCall.args, [
         {
           prompt:
-            '<title>Fix a minor bug</title><description>It does not work</description>',
+            '<title>Fix a minor bug</title>\n<description>It does not work</description>',
           options: {
             cwd: codeFixture,
             permissionMode: 'bypassPermissions',
@@ -251,6 +278,65 @@ suite('events/processTask', () => {
     test('should cleanup code', async () => {
       assert.equal(cleanupStub.callCount, 1);
       assert.deepEqual(cleanupStub.firstCall.args, [dataWithDescription]);
+    });
+  });
+
+  suite('with task origin comments', () => {
+    setup(async () => {
+      await processTask.handler?.(app, {
+        baseURL: 'https://api.automa.app',
+        data: dataWithOriginComments,
+      });
+    });
+
+    test('should download code', async () => {
+      assert.equal(downloadStub.callCount, 1);
+      assert.deepEqual(downloadStub.firstCall.args, [
+        dataWithOriginComments,
+        {
+          baseURL: 'https://api.automa.app',
+        },
+      ]);
+    });
+
+    test('should run claude code', async () => {
+      assert.equal(queryStub.callCount, 1);
+      assert.deepEqual(queryStub.firstCall.args, [
+        {
+          prompt:
+            '<title>Fix a minor bug</title>\n<comment author="user1">This is a comment</comment>\n<comment author="user2">This is another comment</comment>',
+          options: {
+            cwd: codeFixture,
+            permissionMode: 'bypassPermissions',
+          },
+        },
+      ]);
+    });
+
+    test('should generate PR fields', async () => {
+      assert.equal(parseStub.callCount, 1);
+      assert.deepEqual(parseStub.firstCall.args, [anthropicRequestData]);
+    });
+
+    test('should propose code', async () => {
+      assert.equal(proposeStub.callCount, 1);
+      assert.deepEqual(proposeStub.firstCall.args, [
+        {
+          ...dataWithOriginComments,
+          proposal: {
+            title: 'Fix a minor bug',
+            body: 'This PR fixes a minor bug.',
+          },
+        },
+        {
+          baseURL: 'https://api.automa.app',
+        },
+      ]);
+    });
+
+    test('should cleanup code', async () => {
+      assert.equal(cleanupStub.callCount, 1);
+      assert.deepEqual(cleanupStub.firstCall.args, [dataWithOriginComments]);
     });
   });
 

@@ -4,6 +4,6 @@ networks:
 services:
   redis:
     container_name: bots-redis
-    image: redis:alpine
+    image: redis:7-alpine
     ports:
       - 6379:6379

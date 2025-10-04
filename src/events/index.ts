@@ -20,24 +20,26 @@ type JobsInputIntersection<T> = (
   ? I
   : never;
 
+type JobsMap = {
+  [K in keyof Jobs]: {
+    publish: (
+      id: string | number,
+      input: JobInput<Jobs[K]>,
+      opts?: JobsOptions,
+    ) => Promise<void>;
+    bulkPublish: (
+      jobs: {
+        id: string | number;
+        input: JobInput<Jobs[K]>;
+      }[],
+      opts?: JobsOptions,
+    ) => void;
+  };
+};
+
 declare module 'fastify' {
   interface FastifyInstance {
-    events: {
-      [K in keyof Jobs]: {
-        publish: (
-          id: string | number,
-          input: JobInput<Jobs[K]>,
-          opts?: JobsOptions,
-        ) => Promise<void>;
-        bulkPublish: (
-          jobs: {
-            id: string | number;
-            input: JobInput<Jobs[K]>;
-          }[],
-          opts?: JobsOptions,
-        ) => void;
-      };
-    };
+    events: JobsMap;
   }
 }
 
@@ -150,7 +152,7 @@ const eventsPlugin: FastifyPluginAsync<{
           },
         },
       }),
-      {},
+      {} as JobsMap,
     ),
   );
 };

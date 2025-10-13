@@ -1,6 +1,7 @@
 import { FastifyInstance } from 'fastify';
 import { Tool } from '@anthropic-ai/sdk/resources/messages';
 import {
+  Automa,
   verifyWebhook,
   WebhookEventData,
   WebhookEventType,
@@ -11,7 +12,7 @@ import { z } from 'zod/v4';
 
 import { env } from '../../env';
 
-import { anthropic, automa } from '../../clients';
+import { anthropic } from '../../clients';
 import { update } from '../../update';
 
 const PullRequest = z.object({
@@ -102,28 +103,25 @@ export const runUpdate = async (
   baseURL: string,
   data: WebhookEventData<WebhookEventType.TaskCreated>,
 ) => {
+  const automa = new Automa({ baseURL });
+
   // Download code
-  const folder = await automa.code.download(data, { baseURL });
+  const folder = await automa.code.download(data);
 
   try {
     // Modify code
-    const { message } = await update(app, folder, data);
+    const { message } = await update(app, folder, data, automa);
 
     const prFields = await generatePrFields(message);
 
     // Propose code
-    await automa.code.propose(
-      {
-        ...data,
-        proposal: {
-          title: prFields?.title,
-          body: prFields?.body,
-        },
+    await automa.code.propose({
+      ...data,
+      proposal: {
+        title: prFields?.title,
+        body: prFields?.body,
       },
-      {
-        baseURL,
-      },
-    );
+    });
   } finally {
     // Clean up
     automa.code.cleanup(data);

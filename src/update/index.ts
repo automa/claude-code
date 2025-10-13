@@ -1,11 +1,16 @@
 import { FastifyInstance } from 'fastify';
 import { query } from '@anthropic-ai/claude-code';
-import { CodeFolder, WebhookEventData, WebhookEventType } from '@automa/bot';
+import Automa, {
+  CodeFolder,
+  WebhookEventData,
+  WebhookEventType,
+} from '@automa/bot';
 
 export const update = async (
   app: FastifyInstance,
   folder: CodeFolder,
   data: WebhookEventData<WebhookEventType.TaskCreated>,
+  automa: Automa,
 ) => {
   const descriptions = data.task.items
     .filter(({ type }) => type === 'message')
@@ -36,6 +41,11 @@ export const update = async (
   let completedMsg;
 
   for await (const message of run) {
+    automa.task.log({
+      task: { id: data.task.id, token: data.task.token },
+      event: message,
+    });
+
     if (message.type === 'result') {
       completedMsg = message;
     }

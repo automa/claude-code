@@ -5,6 +5,7 @@ import { env, isProduction, isTest, version } from './env';
 
 import fastify from 'fastify';
 import fastifyAutoload from '@fastify/autoload';
+import { FastifyError } from '@fastify/error';
 import fastifyHelmet from '@fastify/helmet';
 import fastifySensible from '@fastify/sensible';
 import fastifySwagger from '@fastify/swagger';
@@ -41,14 +42,16 @@ export const server = async () => {
       return error;
     }
 
-    if (error.code === 'FST_ERR_VALIDATION') {
-      return reply.unprocessableEntity(error.message);
-    } else if (error.code === 'FST_ERR_CTP_BODY_TOO_LARGE') {
-      return reply.payloadTooLarge(error.message);
-    } else if (error.code === 'FST_ERR_CTP_INVALID_MEDIA_TYPE') {
-      return reply.unsupportedMediaType(error.message);
-    } else if (error.statusCode === 400) {
-      return reply.badRequest(error.message);
+    if (error instanceof FastifyError) {
+      if (error.code === 'FST_ERR_VALIDATION') {
+        return reply.unprocessableEntity(error.message);
+      } else if (error.code === 'FST_ERR_CTP_BODY_TOO_LARGE') {
+        return reply.payloadTooLarge(error.message);
+      } else if (error.code === 'FST_ERR_CTP_INVALID_MEDIA_TYPE') {
+        return reply.unsupportedMediaType(error.message);
+      } else if (error.statusCode === 400) {
+        return reply.badRequest(error.message);
+      }
     }
 
     app.error.capture(error, { method: request.method, url: request.url });

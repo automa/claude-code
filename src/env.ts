@@ -20,7 +20,7 @@ export const version = pkg.version;
 const schema = z.object({
   ANTHROPIC: z.object({
     API_KEY: z.string().optional(),
-    MODEL: z.string().default('claude-sonnet-4-0'),
+    MODEL: z.string().default('claude-sonnet-4-5'),
   }),
   AUTOMA: z.object({
     WEBHOOK_SECRET: z.string().default('atma_whsec_claude-code'),

@@ -2,9 +2,6 @@ import { env } from './env';
 
 import AnthropicBedrock from '@anthropic-ai/bedrock-sdk';
 import Anthropic from '@anthropic-ai/sdk';
-import Automa from '@automa/bot';
-
-export const automa = new Automa();
 
 export const anthropic = env.ANTHROPIC.API_KEY
   ? new Anthropic({
